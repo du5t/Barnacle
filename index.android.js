@@ -7,6 +7,12 @@ var {
   Text,
   View,
 } = React;
+// import MsgList from './com/msg-list'
+// import Card from './com/msg-view/card'
+// import * as HelpCards from './com/help/cards'
+// import WelcomeHelp from './com/help/welcome'
+var Card = require('./components/Card');
+
 var SwitchAndroid = require('SwitchAndroid');
 var ToolbarAndroid = require('ToolbarAndroid');
 
@@ -26,7 +32,9 @@ var Barnacle = React.createClass({
         <Text style={styles.instructions}>
           URL bar
         </Text>
-      
+
+        <Card />
+        
         <Text style={styles.instructions}>
           Post input area
         </Text>
