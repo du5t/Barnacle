@@ -1,0 +1,21 @@
+[
+  {
+    "type":	"post",
+    "text":	"hoody doody wickety woo. @foo",
+    "root":	"%f45279b73af60b307b556930de0a80d2b5cddb140d3795733b3df843093516bb=.sha256",
+    "branch": "%f45279b73af60b307b556930de0a80d2b5cddb140d3795733b3df843093516bb=.sha256",
+    "mentions.0.link":	"foo",
+    "mentions.0.name":	"foo"
+  },
+  {
+    "type":	"vote",
+    "vote.link":	"%f45279b73af60b307b556930de0a80d2b5cddb140d3795733b3df843093516bb=.sha256",
+    "vote.value":	1
+  },
+  {
+    "type":	"contact",
+    "contact":	"bar",
+    "following":	"true",
+    "blocking":	"false"
+  }
+]
