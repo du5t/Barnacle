@@ -6,6 +6,7 @@ var {
   ScrollView,
   StyleSheet,
   Text,
+  ToolbarAndroid,
   TouchableHighlight,
   View,
 } = React;
@@ -18,9 +19,6 @@ var Card = require('./components/Card');
 // TODO make better data and data layer
 var data = require('./data/mockData.json');
 
-
-var SwitchAndroid = require('SwitchAndroid');
-var ToolbarAndroid = require('ToolbarAndroid');
 
 var Barnacle = React.createClass({
   render: function() {
