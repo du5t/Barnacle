@@ -3,6 +3,7 @@
 var React = require('react-native');
 var {
   AppRegistry,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -62,7 +63,9 @@ var Barnacle = React.createClass({
             // subtitle={this.state.actionText}
             title="Barnacle" />
         </View>
-        {cards}
+        <ScrollView style={styles.cardContainer} automaticallyAdjustContentInsets={false}>
+          {cards}
+        </ScrollView>
       </View>
     );
   }
@@ -77,6 +80,9 @@ var toolbarActions = [
 var styles = StyleSheet.create({
   container: {
     backgroundColor: '#252C2F',
+    flex: 1
+  },
+  cardContainer: {
   },
   cardList: {
     backgroundColor: '#2A2D31',
