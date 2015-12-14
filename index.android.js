@@ -5,6 +5,7 @@ var {
   AppRegistry,
   StyleSheet,
   Text,
+  TouchableHighlight,
   View,
 } = React;
 // import MsgList from './com/msg-list'
@@ -13,70 +14,84 @@ var {
 // import WelcomeHelp from './com/help/welcome'
 var Card = require('./components/Card');
 
+// TODO make better data and data layer
+var data = require('./data/mockData.json');
+
+
 var SwitchAndroid = require('SwitchAndroid');
 var ToolbarAndroid = require('ToolbarAndroid');
 
 var Barnacle = React.createClass({
   render: function() {
-    return (
-      <View>
-        <ToolbarAndroid
-           actions={toolbarActions}
-           navIcon={require('./assets/img/ic_menu_black_24dp.png')}
-           // onActionSelected={this._onActionSelected}
-           onIconClicked={() => this.setState({actionText: 'Icon clicked'})}
-          style={styles.toolbar}
-          // subtitle={this.state.actionText}
-          title="Barnacle" />
-      
-        <Text style={styles.instructions}>
-          URL bar
-        </Text>
 
-        <Card />
-        
-        <Text style={styles.instructions}>
-          Post input area
-        </Text>
-      
-        <Text style={styles.instructions}>
-          Posts area
-          <Text style={styles.instructions}>
-            A single post
-            Should be clickable, navigating to its own thread
-          </Text>
-        </Text>
+    var cards = data.map( (card) => {
+      var cardTitle;
+      var cardBody;
+      switch (card.type) {
+        case "post":
+          cardTitle = "User ";
+          cardBody = card.text;
+          break;
+        case "vote":
+          cardTitle = "User dug post: ";
+          cardBody = card["vote.link"];
+          break;
+        case "contact":
+          cardTitle = "foo followed: ";
+          cardBody = card.contact;
+          break;
+      }
+      return (
+        <TouchableHighlight>
+          <View>
+            <Card style={styles.cardList} title={cardTitle} body={cardBody} />
+          </View>
+        </TouchableHighlight>);
+    });
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.toolbar}>
+          <ToolbarAndroid
+            actions={toolbarActions}
+            navIcon={require('./assets/img/ic_menu_black_24dp.png')}
+            // onActionSelected={this._onActionSelected}
+            onIconClicked={() => this.setState({actionText: 'Icon clicked'})}
+            style={styles.toolbar}
+            titleColor='#e2e2d2'
+            // subtitle={this.state.actionText}
+            title="Barnacle" />
+        </View>
+        {cards}
       </View>
     );
   }
 });
 
 var toolbarActions = [
-  {title: 'Create', icon: require('./assets/img/ic_create_black_48dp.png'), show: 'always'},
-  {title: 'Filter'},
-  {title: 'Settings', icon: require('./assets/img/ic_settings_black_48dp.png'), show: 'always'},
+  { title: 'Create', icon: require('./assets/img/ic_create_black_48dp.png'), show: 'always'},
+  { title: 'Filter'},
+  { title: 'Settings', icon: require('./assets/img/ic_settings_black_48dp.png'), show: 'always'},
 ];
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#252C2F',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  cardList: {
+    backgroundColor: '#2A2D31',
+    color: '#d2d2c2',
+    borderBottomColor: '#ffffff',
+    borderLeftColor: '#ffffff',
+    borderRightColor: '#ffffff',
+    borderWidth: 5,
+    flexDirection: 'column',
+    height: 100,
   },
   toolbar: {
-    flex: 1,
-    backgroundColor: '#e9eaed',
+    backgroundColor: '#292a2d',
+    borderBottomColor: '#111',
+    borderBottomWidth: 2,
     height: 56,
   },
 });
