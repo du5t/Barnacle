@@ -2,6 +2,7 @@ var React = require('react-native');
 var { AppRegistry,
       StyleSheet,
       Text,
+      ToolbarAndroid,
       View,
 } = React;
 
@@ -10,7 +11,9 @@ class Card extends React.Component {
   render() {
     return (
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>{this.props.title}</Text>
+        <ToolbarAndroid style={styles.cardTitle}
+              subtitle={this.props.title}
+              subtitleColor='#d2d2f2' />
         <Text style={styles.cardText}>{this.props.body}</Text>
       </View>
     )
@@ -30,8 +33,9 @@ var styles = StyleSheet.create({
   },
   cardTitle: {
     backgroundColor: '#4A4D51',
-    color: '#d2d2c2',
-    alignSelf: 'stretch',
+    height: 30,
+    marginTop: 2,
+    marginBottom: 2,
   },
   cardText: {
     color: '#c2c2b2',
