@@ -11,7 +11,6 @@ var {
   View,
 } = React;
 
-var schemas = require('ssb-msg-schemas');
 
 // import MsgList from './com/msg-list'
 // import Card from './com/msg-view/card'
@@ -21,6 +20,19 @@ var Card = require('./components/Card');
 
 // TODO make better data and data layer
 var data = require('./data/mockData.json');
+
+var createSbot = require('scuttlebot')
+  .use(require('scuttlebot/plugins/master'))
+  .use(require('scuttlebot/plugins/gossip'))
+  .use(require('scuttlebot/plugins/friends'))
+  .use(require('scuttlebot/plugins/replicate'))
+  .use(require('scuttlebot/plugins/blobs'))
+  .use(require('scuttlebot/plugins/invite'))
+  .use(require('scuttlebot/plugins/block'))
+  .use(require('scuttlebot/plugins/logging'))
+  .use(require('scuttlebot/plugins/private'))
+  .use(require('scuttlebot/plugins/local'))
+  .use(require('./api'));
 
 /*
 schema:
