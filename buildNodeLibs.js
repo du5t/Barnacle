@@ -10,8 +10,9 @@ var walk = require('walk');
 
 var nodePackNames = Object.keys(nodeLibs)
 
-// remove util, messes things up
-nodePackNames.splice(nodePackNames.indexOf("util", 1));
+// remove some packages that mess things up down(up?)stream
+nodePackNames
+  .splice(nodePackNames.indexOf("util", 1));
 
 var walker = walk.walk("./node_modules");
 walker
@@ -20,27 +21,37 @@ walker
 
 
 function fileHandler(root, fileStat, next) {
-  nodePackNames.map(function(thisPkgName) {
-    var originalRequire = "require('" + thisPkgName + "')";
-    var newRequire = "require('node-libs-browser')." + thisPkgName;
-    
-    replace({
-      files: path.resolve(root, fileStat.name),
-      replace: originalRequire,
-      with: newRequire
-    }, function(error, changedFiles) {
-      //Catch errors
-      if (error) {
-        return console.error('Error occurred:', error);
-      }
-      if (changedFiles.length > 0) {
-        // List changed files
-        console.log('Modified files:', changedFiles.join(', '));
-      }
-    });
-  });
-  // move to next file
-  next();
+  
+  nodePackNames.map(
+    function(thisPkgName) {
+      var originalRequire = "require('" + thisPkgName + "')";
+      var newRequire = "require('node-libs-browser')." + thisPkgName;
+      
+
+      // skip some dirs
+      if ((fileStat.name).indexOf("react-native") !== -1 ||
+          (fileStat.name).indexOf("graceful-fs")) {
+        next();
+      } else {
+        
+        replace({
+          files: path.resolve(root, fileStat.name),
+          replace: originalRequire,
+          with: newRequire
+        }, function(error, changedFiles) {
+          //Catch errors
+          if (error) {
+            return console.error('Error occurred:', error);
+          }
+          if (changedFiles.length > 0) {
+            // List changed files
+            console.log('Modified files:', changedFiles.join(', '));
+          }
+        });
+      });
+    // move to next file
+    next();
+  }
 }
 
 
